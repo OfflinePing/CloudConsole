@@ -31,7 +31,6 @@ public class ProgressBar : IDisposable, IProgress<double>
         lock (timer)
         {
             if (disposed) return;
-
             int progressBlockCount = (int)(currentProgress * blockCount);
             int percent = (int)(currentProgress * 100);
             string text = string.Format("{0}{1} {2,3}%",
@@ -59,11 +58,10 @@ public class ProgressBar : IDisposable, IProgress<double>
             outputBuilder.Append(' ', overlapCount);
             outputBuilder.Append('\b', overlapCount);
         }
-
         Console.Write(outputBuilder);
         currentText = text;
     }
-
+    
     private void ResetTimer()
     {
         timer.Change(animationInterval, TimeSpan.FromMilliseconds(-1));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,14 +14,14 @@ namespace CloudConsole
     {
         public static void banner()
         {
-            Console.Title = "-> CloudForce - CLI | Credits to PolyProxy, Jansel & GNF-Team <-";
+            Console.Title = "-> CloudForce - CLI | Credits to GNF-Team <-";
             writeCenter("╔═══════════════════════════════════════╗");
             writeCenter("║       Welcome to CloudForce - CLI     ║");
             writeCenter("║                                       ║");
             writeCenter("║                                       ║");
-            writeCenter("║ [0] Download File    [1] Bypass Steam ║");
+            writeCenter("║ [0] Download File    [1] App-Store    ║");
             writeCenter("║                                       ║");
-            writeCenter("║ [2] App Launcher     [3] Exit         ║");
+            writeCenter("║ [2] EXE Launcher     [3] Exit         ║");
             writeCenter("║                                       ║");
             writeCenter("╚═══════════════════════════════════════╝");
             Console.WriteLine("");
@@ -99,10 +100,31 @@ namespace CloudConsole
                         }
                         continue;
                     case "1":
+                        continue;
                     case "2":
                         Console.Clear();
-                        writeCenter("-> Coming Soon <-");
-                        Thread.Sleep(2000);
+                        writeCenter("-> Enter Application Path <-");
+                        writeCharsCenter("> Path: ");
+                        string exe = Console.ReadLine();
+                        writeCharsCenter("> Args: ");
+                        string arg = Console.ReadLine();
+                        if (File.Exists(exe))
+                        {
+                            if (arg != "")
+                            {
+                                Process.Start(exe, arg);
+                            } else
+                            {
+                                Process.Start(exe);
+                            }
+                        } else
+                        {
+                            Console.Clear();
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            writeCenter("-> Invalid File Path <-");
+                            Console.ResetColor();
+                            Thread.Sleep(2000);
+                        }
                         continue;
                     case "exit":
                     case "quit":
